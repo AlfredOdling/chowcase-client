@@ -12,7 +12,6 @@ import {
   NAV_STYLE_INSIDE_HEADER_HORIZONTAL,
   NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR,
 } from "../../constants/ThemeSetting";
-import NoHeaderNotification from "../Topbar/NoHeaderNotification/index";
 import { useRouteMatch } from "react-router-dom";
 
 const { Content, Footer } = Layout;
@@ -39,8 +38,6 @@ const MainApp = () => {
   };
   const getNavStyles = (navStyle) => {
     switch (navStyle) {
-      case NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR:
-        return <NoHeaderNotification />;
       default:
         return null;
     }

@@ -4,20 +4,8 @@ import Icon from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import UserOutlined from "@ant-design/icons/lib/icons/UserOutlined";
 import LockOutlined from "@ant-design/icons/lib/icons/LockOutlined";
-import GoogleOutlined from "@ant-design/icons/lib/icons/GoogleOutlined";
-import FacebookOutlined from "@ant-design/icons/lib/icons/FacebookOutlined";
-import GithubOutlined from "@ant-design/icons/lib/icons/GithubOutlined";
-import TwitterOutlined from "@ant-design/icons/lib/icons/TwitterOutlined";
 import { useDispatch } from "react-redux";
-import {
-  hideMessage,
-  showAuthLoader,
-  userFacebookSignIn,
-  userGithubSignIn,
-  userGoogleSignIn,
-  userSignIn,
-  userTwitterSignIn,
-} from "appRedux/actions/Auth";
+import { hideMessage, showAuthLoader, userSignIn } from "appRedux/actions/Auth";
 
 const FormItem = Form.Item;
 
@@ -104,43 +92,6 @@ const SignUP = () => {
             </Button>
           </FormItem>
         </Form>
-        <div className="gx-flex-row">
-          <span className="gx-mb-2 gx-mr-3">or Sign up using: </span>
-          <ul className="gx-social-link">
-            <li>
-              <GoogleOutlined
-                onClick={() => {
-                  dispatch(showAuthLoader());
-                  dispatch(userGoogleSignIn());
-                }}
-              />
-            </li>
-            <li>
-              <FacebookOutlined
-                onClick={() => {
-                  dispatch(showAuthLoader());
-                  dispatch(userFacebookSignIn());
-                }}
-              />
-            </li>
-            <li>
-              <GithubOutlined
-                onClick={() => {
-                  dispatch(showAuthLoader());
-                  dispatch(userGithubSignIn());
-                }}
-              />
-            </li>
-            <li>
-              <TwitterOutlined
-                onClick={() => {
-                  dispatch(showAuthLoader());
-                  dispatch(userTwitterSignIn());
-                }}
-              />
-            </li>
-          </ul>
-        </div>
       </div>
     </div>
   );
