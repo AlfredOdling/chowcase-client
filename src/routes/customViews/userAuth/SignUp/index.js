@@ -1,14 +1,14 @@
 import React from "react";
-import {Button, Checkbox, Form, Input} from "antd";
-import Icon from '@ant-design/icons';
-import {Link} from "react-router-dom";
+import { Button, Checkbox, Form, Input } from "antd";
+import Icon from "@ant-design/icons";
+import { Link } from "react-router-dom";
 import UserOutlined from "@ant-design/icons/lib/icons/UserOutlined";
 import LockOutlined from "@ant-design/icons/lib/icons/LockOutlined";
 import GoogleOutlined from "@ant-design/icons/lib/icons/GoogleOutlined";
 import FacebookOutlined from "@ant-design/icons/lib/icons/FacebookOutlined";
 import GithubOutlined from "@ant-design/icons/lib/icons/GithubOutlined";
 import TwitterOutlined from "@ant-design/icons/lib/icons/TwitterOutlined";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   hideMessage,
   showAuthLoader,
@@ -16,21 +16,20 @@ import {
   userGithubSignIn,
   userGoogleSignIn,
   userSignIn,
-  userTwitterSignIn
+  userTwitterSignIn,
 } from "appRedux/actions/Auth";
 
 const FormItem = Form.Item;
 
 const SignUP = () => {
-
   const dispatch = useDispatch();
 
-  const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
   };
 
-  const onFinish = values => {
-    console.log("finish",values)
+  const onFinish = (values) => {
+    console.log("finish", values);
     dispatch(showAuthLoader());
     dispatch(userSignIn(values));
   };
@@ -42,38 +41,63 @@ const SignUP = () => {
           <h1 className="gx-login-title">Sign Up</h1>
         </div>
         <Form
-        initialValues={{ remember: true }}
-        name="basic"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        className="gx-signin-form gx-form-row0">
-
-        <FormItem rules={[{ required: true, message: 'Please input your username!\'}' }]} name="uaername">
-
-          <Input prefix={<UserOutlined style={{color: 'rgba(0,0,0,.25)'}}/>}
-                 placeholder="Username"/>
-        </FormItem>
-        <FormItem rules={[{ required: true, message: 'Please input your E-mail!' }]} name="email">
-
-          <Input prefix={<UserOutlined style={{color: 'rgba(0,0,0,.25)'}}/>}
-                 placeholder="Email"/>
-        </FormItem>
-        <FormItem rules= {[{required: true, message: 'Please input your Password!'}]}  name="password">
-
-          <Input prefix={<LockOutlined style={{color: 'rgba(0,0,0,.25)'}}/>}
-                 type="password"
-                 placeholder="Password"/>
-        </FormItem>
-
-          <FormItem rules= {[{required: true, message: 'Please input your Password!'}]}  name="confirm-password">
-              <Input prefix={<LockOutlined style={{color: 'rgba(0,0,0,.25)'}}/>} type="password"
-                     placeholder="Confirm Password"/>
+          initialValues={{ remember: true }}
+          name="basic"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          className="gx-signin-form gx-form-row0"
+        >
+          <FormItem
+            rules={[
+              { required: true, message: "Please input your username!'}" },
+            ]}
+            name="uaername"
+          >
+            <Input
+              prefix={<UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+              placeholder="Username"
+            />
+          </FormItem>
+          <FormItem
+            rules={[{ required: true, message: "Please input your E-mail!" }]}
+            name="email"
+          >
+            <Input
+              prefix={<UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+              placeholder="Email"
+            />
+          </FormItem>
+          <FormItem
+            rules={[{ required: true, message: "Please input your Password!" }]}
+            name="password"
+          >
+            <Input
+              prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+              type="password"
+              placeholder="Password"
+            />
           </FormItem>
 
-        <FormItem  name="remember" valuePropName="checked">
-          <Checkbox>Remember me</Checkbox>
-          <Link className="gx-login-form-forgot" to="/custom-views/user-auth/forgot-password">Forgot password</Link>
-        </FormItem>
+          <FormItem
+            rules={[{ required: true, message: "Please input your Password!" }]}
+            name="confirm-password"
+          >
+            <Input
+              prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+              type="password"
+              placeholder="Confirm Password"
+            />
+          </FormItem>
+
+          <FormItem name="remember" valuePropName="checked">
+            <Checkbox>Remember me</Checkbox>
+            <Link
+              className="gx-login-form-forgot"
+              to="/custom-views/user-auth/forgot-password"
+            >
+              Forgot password
+            </Link>
+          </FormItem>
           <FormItem className="gx-text-center">
             <Button type="primary" htmlType="submit">
               Sign Up
@@ -84,34 +108,42 @@ const SignUP = () => {
           <span className="gx-mb-2 gx-mr-3">or Sign up using: </span>
           <ul className="gx-social-link">
             <li>
-              <GoogleOutlined onClick={() => {
-                dispatch(showAuthLoader());
-                dispatch(userGoogleSignIn());
-              }}/>
+              <GoogleOutlined
+                onClick={() => {
+                  dispatch(showAuthLoader());
+                  dispatch(userGoogleSignIn());
+                }}
+              />
             </li>
             <li>
-              <FacebookOutlined onClick={() => {
-                dispatch(showAuthLoader());
-                dispatch(userFacebookSignIn());
-              }}/>
+              <FacebookOutlined
+                onClick={() => {
+                  dispatch(showAuthLoader());
+                  dispatch(userFacebookSignIn());
+                }}
+              />
             </li>
             <li>
-              <GithubOutlined onClick={() => {
-                dispatch(showAuthLoader());
-                dispatch(userGithubSignIn());
-              }}/>
+              <GithubOutlined
+                onClick={() => {
+                  dispatch(showAuthLoader());
+                  dispatch(userGithubSignIn());
+                }}
+              />
             </li>
             <li>
-              <TwitterOutlined  onClick={() => {
-                dispatch(showAuthLoader());
-                dispatch(userTwitterSignIn());
-              }}/>
+              <TwitterOutlined
+                onClick={() => {
+                  dispatch(showAuthLoader());
+                  dispatch(userTwitterSignIn());
+                }}
+              />
             </li>
           </ul>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default SignUP;
