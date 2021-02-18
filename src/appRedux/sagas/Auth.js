@@ -6,18 +6,59 @@ import {
   userSignOutSuccess,
   userSignUpSuccess,
 } from "../../appRedux/actions/Auth";
+import { client } from "../../NextApp";
+import { gql } from "@apollo/client";
 
-const createUserWithEmailPasswordRequest = async (email, password) => {};
-// await auth
-//   .createUserWithEmailAndPassword(email, password)
-//   .then((authUser) => authUser)
-//   .catch((error) => error);
+const createUserWithEmailPasswordRequest = async (email, password) =>
+  client
+    .mutate({
+      mutation: gql`
+        mutation CreateUser($email: String!, $password: String!) {
+          createUser(email: $email, password: $password) {
+            token
+            user {
+              id
+              email
+            }
+          }
+        }
+      `,
+      variables: {
+        email,
+        password,
+      },
+    })
+    .then((result) => result)
+    .catch((error) => error);
 
-const signInUserWithEmailPasswordRequest = async (email, password) => {};
-// await auth
-//   .signInWithEmailAndPassword(email, password)
-//   .then((authUser) => authUser)
-//   .catch((error) => error);
+const signInUserWithEmailPasswordRequest = async (email, password) =>
+  client
+    .mutate({
+      mutation: gql`
+        mutation Login($email: String!, $password: String!) {
+          login(email: $email, password: $password) {
+            user {
+              id
+              email
+            }
+            token
+            error
+          }
+        }
+      `,
+      variables: {
+        email,
+        password,
+      },
+    })
+    .then((result) => {
+      console.log("result");
+      return result;
+    })
+    .catch((error) => {
+      console.log("error");
+      return error;
+    });
 
 const signOutRequest = async () => {};
 // await auth
@@ -26,41 +67,51 @@ const signOutRequest = async () => {};
 //   .catch((error) => error);
 
 function* createUserWithEmailPassword({ payload }) {
-  // const { email, password } = payload;
-  // try {
-  //   const signUpUser = yield call(
-  //     createUserWithEmailPasswordRequest,
-  //     email,
-  //     password
-  //   );
-  //   if (signUpUser.message) {
-  //     yield put(showAuthMessage(signUpUser.message));
-  //   } else {
-  //     localStorage.setItem("user_id", signUpUser.user.uid);
-  //     yield put(userSignUpSuccess(signUpUser.user.uid));
-  //   }
-  // } catch (error) {
-  //   yield put(showAuthMessage(error));
-  // }
+  const { email, password } = payload;
+  try {
+    const { data } = yield call(
+      createUserWithEmailPasswordRequest,
+      email,
+      password
+    );
+
+    if (!data.createUser) {
+      console.error("Error!");
+      throw new Error("Could not create user!");
+      // Email is taken
+      // yield put(showAuthMessage(signUpUser.message));
+    } else {
+      const userId = data.createUser.user.id;
+      localStorage.setItem("user_id", userId);
+      localStorage.setItem("user_email", email);
+      yield put(userSignUpSuccess(userId));
+    }
+  } catch (error) {
+    yield put(showAuthMessage(error));
+  }
 }
 
 function* signInUserWithEmailPassword({ payload }) {
-  // const { email, password } = payload;
-  // try {
-  //   const signInUser = yield call(
-  //     signInUserWithEmailPasswordRequest,
-  //     email,
-  //     password
-  //   );
-  //   if (signInUser.message) {
-  //     yield put(showAuthMessage(signInUser.message));
-  //   } else {
-  //     localStorage.setItem("user_id", signInUser.user.uid);
-  //     yield put(userSignInSuccess(signInUser.user.uid));
-  //   }
-  // } catch (error) {
-  //   yield put(showAuthMessage(error));
-  // }
+  const { email, password } = payload;
+  try {
+    const { data } = yield call(
+      signInUserWithEmailPasswordRequest,
+      email,
+      password
+    );
+    console.log("data", data);
+    if (!data.login) {
+      throw new Error("Could not login!");
+      // yield put(showAuthMessage(signInUser.message));
+    } else {
+      const userId = data.login.user.id;
+      localStorage.setItem("user_id", userId);
+      localStorage.setItem("user_email", email);
+      yield put(userSignInSuccess(userId));
+    }
+  } catch (error) {
+    yield put(showAuthMessage(error));
+  }
 }
 
 function* signOut() {

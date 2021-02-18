@@ -9,10 +9,6 @@ import { hideMessage, showAuthLoader, userSignUp } from "appRedux/actions/Auth";
 import IntlMessages from "util/IntlMessages";
 import { message } from "antd/lib/index";
 import CircularProgress from "components/CircularProgress/index";
-import GoogleOutlined from "@ant-design/icons/lib/icons/GoogleOutlined";
-import FacebookOutlined from "@ant-design/icons/lib/icons/FacebookOutlined";
-import GithubOutlined from "@ant-design/icons/lib/icons/GithubOutlined";
-import TwitterOutlined from "@ant-design/icons/lib/icons/TwitterOutlined";
 
 const FormItem = Form.Item;
 
@@ -50,6 +46,7 @@ const SignUp = (props) => {
   };
 
   const onFinish = (values) => {
+    console.log(values);
     dispatch(showAuthLoader());
     dispatch(userSignUp(values));
   };
@@ -86,15 +83,6 @@ const SignUp = (props) => {
               onFinishFailed={onFinishFailed}
               className="gx-signin-form gx-form-row0"
             >
-              <FormItem
-                rules={[
-                  { required: true, message: "Please input your username!" },
-                ]}
-                name="Username"
-              >
-                <Input placeholder="Username" />
-              </FormItem>
-
               <FormItem
                 name="email"
                 rules={[

@@ -17,9 +17,6 @@ const INIT_STATE = {
   authUser: localStorage.getItem("user_id"),
 };
 
-localStorage.clear();
-console.log("authUser", localStorage.getItem("user_id"));
-
 export default (state = INIT_STATE, action) => {
   switch (action.type) {
     case SIGNUP_USER_SUCCESS: {
