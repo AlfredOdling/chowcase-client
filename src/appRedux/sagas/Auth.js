@@ -75,6 +75,8 @@ function* createUserWithEmailPassword({ payload }) {
       password
     );
 
+    console.log("data", data);
+
     if (!data.createUser) {
       console.error("Error!");
       throw new Error("Could not create user!");
@@ -87,6 +89,8 @@ function* createUserWithEmailPassword({ payload }) {
       yield put(userSignUpSuccess(userId));
     }
   } catch (error) {
+    console.log("error", error);
+
     yield put(showAuthMessage(error));
   }
 }
