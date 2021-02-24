@@ -13,7 +13,7 @@ import {
 } from "@apollo/client";
 
 const store = configureStore(/* provide initial state if any */);
-
+// new feature
 const httpLink = new HttpLink({
   uri: "https://graphql-server-alfred.herokuapp.com/",
 });
