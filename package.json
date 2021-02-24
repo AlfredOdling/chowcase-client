@@ -19,6 +19,7 @@
     "connected-react-router": "^6.6.1",
     "customize-cra": "^1.0.0",
     "draftjs-to-html": "^0.9.1",
+    "env-cmd": "^10.1.0",
     "firebase": "^7.6.1",
     "graphql": "^15.5.0",
     "instantsearch.css": "^7.3.1",
@@ -67,6 +68,8 @@
     "victory": "^34.0.0"
   },
   "scripts": {
+    "build:staging": "env-cmd -f .env.staging npm run build",
+    "build:production": "env-cmd -f .env.production npm run build",
     "start": "react-app-rewired start",
     "build": "CI= react-app-rewired build",
     "test": "react-app-rewired --env=jsdom",

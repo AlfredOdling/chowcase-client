@@ -10,7 +10,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 const store = configureStore(/* provide initial state if any */);
 
 export const client = new ApolloClient({
-  uri: "http://localhost:4000/",
+  uri: "https://graphql-server-alfred.herokuapp.com/", // "http://localhost:4000/",
   cache: new InMemoryCache(),
   defaultOptions: {
     watchQuery: {
