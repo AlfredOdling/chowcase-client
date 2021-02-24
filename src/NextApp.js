@@ -5,13 +5,22 @@ import { Route, Switch } from "react-router-dom";
 import "assets/vendors/style";
 import configureStore, { history } from "./appRedux/store";
 import App from "./containers/App/index";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  HttpLink,
+} from "@apollo/client";
 
 const store = configureStore(/* provide initial state if any */);
 
+const httpLink = new HttpLink({
+  uri: "https://graphql-server-alfred.herokuapp.com/",
+});
+
 // "http://localhost:4000/",
 export const client = new ApolloClient({
-  uri: "https://graphql-server-alfred.herokuapp.com/",
+  link: httpLink,
   cache: new InMemoryCache(),
   defaultOptions: {
     watchQuery: {
